@@ -2,7 +2,7 @@ from client.client import get_user
 import pytest
 from unittest.mock import MagicMock,Mock,patch
 
-@pytest.mark.parametrize("user_id,expected_id",[(1,1),(2,2),(3,3),(5,5)])
+@pytest.mark.parametrize("user_id,expected_id",[(1,1),(2,2),(3,3),(4,4)])
 def test_get_user(user_id,expected_id):
     with patch("client.client.requests.get")as mock_get:
         mock_response=Mock()
