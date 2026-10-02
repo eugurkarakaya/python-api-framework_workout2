@@ -24,6 +24,6 @@ def test_post_data(mocking_post_response):
 
         mock_post.assert_called_once_with(
             "https://jsonplaceholder.typicode.com/users",
-            json={"id":1,
+            json={"userid":1,
                   "name":"Erdem"},
        )
