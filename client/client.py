@@ -8,7 +8,7 @@ def get_user(user_id):
 
 def post_data():
     payload={
-        "id":1,
+        "userid":1,
         "name":"Erdem"
     }
     response=requests.post(f"{BASE_URL}/users",json=payload)
