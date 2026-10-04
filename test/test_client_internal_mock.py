@@ -1,6 +1,7 @@
 from client.client import get_user,post_data
 import pytest
 from unittest.mock import MagicMock,Mock,patch
+import requests
 
 @pytest.mark.parametrize("user_id,expected_id",[(1,1),(2,2),(3,3),(4,4)])
 def test_get_user(user_id,expected_id):
@@ -64,3 +65,11 @@ def test_negative_test_case_internal_Service_Error_505():
         response=get_user(1)
         mock_get.assert_called_once_with(f"https://jsonplaceholder.typicode.com/users/1")
         assert response.status_code == 505
+
+
+def test_get_user_timeout():
+    with patch("client.client.requests.get")as mock_get:
+        mock_get.side_effect=requests.exceptions.Timeout
+
+        with pytest.raises(requests.exceptions.Timeout):
+            get_user(1)
