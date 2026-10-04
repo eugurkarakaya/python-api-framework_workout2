@@ -1,6 +1,8 @@
 from unittest.mock import patch
+import requests
+
 from client.client import get_user,post_data
-from test.conftest import mocking_get_response
+from test.conftest import mocking_get_response,timeout_exception
 import pytest
 
 @pytest.mark.parametrize("user_id,expected_id",[(1,1),(2,2),(3,3),(4,4),(5,5)])
@@ -29,3 +31,9 @@ def test_post_data(mocking_post_response):
 
             headers={"Content-Type": "application/json"}
        )
+def test_timeout(timeout_exception):
+    with patch("client.client.requests.get") as mock_get:
+        mock_get.side_effect=timeout_exception
+
+        with pytest.raises(requests.exceptions.Timeout):
+            get_user(1)

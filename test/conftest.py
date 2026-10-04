@@ -1,5 +1,6 @@
 from unittest.mock import patch,Mock
 import pytest
+import requests
 
 
 @pytest.fixture
@@ -15,3 +16,7 @@ def mocking_post_response():
     mock_response.status_code = 201
     mock_response.json.return_value = {"id": 1, "name": "Erdem"}
     return mock_response
+
+@pytest.fixture
+def timeout_exception():
+    return requests.exceptions.Timeout

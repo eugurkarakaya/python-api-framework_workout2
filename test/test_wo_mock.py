@@ -27,7 +27,6 @@ def test_post_data():
     assert created_id >0
 
 
-
 """
 #kod doğru, aldığın 404 hatası da tam olarak JSONPlaceholder'ın davranışından kaynaklanıyor.
 def test_request_chaining_post_get():
