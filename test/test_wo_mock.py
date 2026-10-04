@@ -18,11 +18,15 @@ def test_post_data():
     assert response.status_code ==201
     assert response.json()["name"] == "Erdem"
     assert response.json()["userid"] == 1
+    assert "Content-Type" in response.headers
 
     created_id=response.json()["id"]
     assert created_id is not None
     assert isinstance(created_id,int) #created_id integer mı, değil mi ?
     assert created_id >0
+
+
+
 """
 #kod doğru, aldığın 404 hatası da tam olarak JSONPlaceholder'ın davranışından kaynaklanıyor.
 def test_request_chaining_post_get():

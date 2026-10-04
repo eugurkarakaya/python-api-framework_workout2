@@ -11,7 +11,12 @@ def post_data():
         "userid":1,
         "name":"Erdem"
     }
-    response=requests.post(f"{BASE_URL}/users",json=payload)
+
+    headers={
+        "Content-Type":"application/json"
+    }
+
+    response=requests.post(f"{BASE_URL}/users",json=payload,headers=headers)
     return response
 
 

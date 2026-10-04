@@ -1,4 +1,4 @@
-from client.client import get_user
+from client.client import get_user,post_data
 import pytest
 from unittest.mock import MagicMock,Mock,patch
 
@@ -17,6 +17,21 @@ def test_get_user(user_id,expected_id):
         assert response.status_code == 200
         assert response.json().get("id") == expected_id
         assert response.json()["name"]=="erdemk"
+
+def test_post_data():
+    with patch("client.client.requests.post")as mock_post:
+        mock_response=Mock()
+        mock_response.status_code=201
+        mock_response.json.return_value={"userid":1,"name":"erdemk"}
+        mock_post.return_value=mock_response
+
+        mock_response=post_data()
+
+        assert mock_response.status_code == 201
+        assert mock_response.json().get("userid") == 1
+
+        mock_post.assert_called_once_with(f"https://jsonplaceholder.typicode.com/users",json={"userid":1,"name":"Erdem"},headers={"Content-Type": "application/json"})
+
 
 def test_edge_case_user_id():
     with patch("client.client.requests.get")as mock_get:

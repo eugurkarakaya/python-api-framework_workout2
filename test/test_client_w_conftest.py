@@ -26,4 +26,6 @@ def test_post_data(mocking_post_response):
             "https://jsonplaceholder.typicode.com/users",
             json={"userid":1,
                   "name":"Erdem"},
+
+            headers={"Content-Type": "application/json"}
        )
