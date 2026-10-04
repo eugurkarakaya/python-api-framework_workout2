@@ -19,6 +19,7 @@ def test_post_data():
     assert response.json()["name"] == "Erdem"
     assert response.json()["userid"] == 1
     assert "Content-Type" in response.headers
+    assert response.request.headers["Content-Type"] == "application/json"
 
     created_id=response.json()["id"]
     assert created_id is not None
