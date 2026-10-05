@@ -74,14 +74,15 @@ def test_get_user_timeout():
         with pytest.raises(requests.exceptions.Timeout):
             get_user(1)
 
-def test_get_users_page_limit():
+@pytest.mark.parametrize("page,limit",[(1, 5),(2, 10),(3, 20),(5, 100)])
+def test_get_users_page_limit(page,limit):
     with patch("client.client.requests.get")as mock_get:
         mock_response=Mock()
         mock_response.status_code=200
         mock_get.return_value=mock_response
 
-        response=get_users_page_limit(2,10)
+        response=get_users_page_limit(page,limit)
 
         assert response.status_code==200
 
-        mock_get.assert_called_once_with(f"https://jsonplaceholder.typicode.com/users",params={"page":2,"limit":10})
+        mock_get.assert_called_once_with(f"https://jsonplaceholder.typicode.com/users",params={"page":page,"limit":limit})
