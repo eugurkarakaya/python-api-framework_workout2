@@ -1,4 +1,4 @@
-from client.client import get_user,post_data
+from client.client import get_user,post_data,get_users_page_limit
 import pytest
 from unittest.mock import MagicMock,Mock,patch
 import requests
@@ -73,3 +73,15 @@ def test_get_user_timeout():
 
         with pytest.raises(requests.exceptions.Timeout):
             get_user(1)
+
+def test_get_users_page_limit():
+    with patch("client.client.requests.get")as mock_get:
+        mock_response=Mock()
+        mock_response.status_code=200
+        mock_get.return_value=mock_response
+
+        response=get_users_page_limit(2,10)
+
+        assert response.status_code==200
+
+        mock_get.assert_called_once_with(f"https://jsonplaceholder.typicode.com/users",params={"page":2,"limit":10})

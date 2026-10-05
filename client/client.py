@@ -20,3 +20,6 @@ def post_data():
     return response
 
 
+def get_users_page_limit(page,limit):
+    response=requests.get(f"{BASE_URL}/users",params={"page":page,"limit":limit})
+    return response
